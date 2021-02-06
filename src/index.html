@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>MDB Webpack Starter</title>
+  <!-- Favicon -->
+  <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- Main css file -->
+  <link rel="stylesheet" href="css/index.min.css" />
+  <!-- Custom styles -->
+  <style></style>
+</head>
+
+<body>
+  <div class='container'>
+
+    <header class="'header">
+      <h1 class="header__title">My<span class="header__title__primaryText">Books</span>Catalog</h1>
+    </header>
+
+    <!-- Main Form -->
+    <form id='addBookForm' class="formBox">
+      <div class="formBox__inputBox">
+        <label for="title">Title:</label>
+        <input class='formBox__dataArea' id='title' name='title' type="text" placeholder="Write the title">
+      </div>
+      <div class="formBox__inputBox">
+        <label for="author">Author:</label>
+        <input class='formBox__dataArea' id='author' name='author' type="text" placeholder="Write an author">
+      </div>
+      <div class="formBox__inputBox">
+        <label for="category">Category:</label>
+        <select class='formBox__dataArea' id="category" name='category'>
+          <option value="none" selected disabled hidden> Select an Option </option>
+          <option value="crime">Crime</option>
+          <option value="sci-fi">Sci-Fi</option>
+          <option value="fantasy">Fantasy</option>
+          <option value="poem">Poem</option>
+          <option value="drama">Drama</option>
+          <option value="science">Science</option>
+        </select>
+      </div>
+      <div class="formBox__inputBox">
+        <p>Priority:</p>
+        <label class='formBox__label'>
+          <input class='formBox__radio' name='priority' value='1' type="radio">&nbsp 1
+        </label>
+        <label class='formBox__label'>
+          <input class='formBox__radio' name='priority' value='2' type="radio">&nbsp 2
+        </label>
+        <label class='formBox__label'>
+          <input class='formBox__radio' name='priority' value='3' type="radio">&nbsp 3
+        </label>
+        <label class='formBox__label'>
+          <input class='formBox__radio' name='priority' value='4' type="radio">&nbsp 4
+        </label>
+        <label class='formBox__label'>
+          <input class='formBox__radio' name='priority' value='5' type="radio">&nbsp 5
+        </label>
+      </div>
+      <input class='formBox__submit btn' type="submit" value="Add book">
+    </form>
+
+    <!-- Other buttons -->
+    <div class='btnBox'>
+      <button class='btnBox__btn btn'>Remove all books</button>
+      <button class='btnBox__btn btn'>Add new category</button>
+      <button class='btnBox__btn btn'>Print books list</button>
+    </div>
+
+    <!--Books counting list-->
+    <ul class='flexBox'>
+      <li id='booksQuantity'>Books quantity:</li>
+      <li>Crime:</li>
+      <li>Sci-fi:</li>
+      <li>Poem:</li>
+      <li>Drama:</li>
+      <li>Science:</li>
+    </ul>
+
+    <!--Main table-->
+    <button class='sortNFilterBtn btn btnCorrectColors'>Filter</button>
+    <button class='sortNFilterBtn btn btnCorrectColors'>Sort</button>
+    <table class='table'>
+      <thead>
+        <tr>
+          <td class='table__td'>Title</td>
+          <td class='table__td'>Author</td>
+          <td class='table__td'>Category</td>
+          <td class='table__td'>Priority</td>
+          <td class='table__td'></td>
+        </tr>
+      </thead>
+      <tbody id='#book-list'></tbody>
+    </table>
+
+  </div>
+
+</body>
+<!-- Main js file -->
+<script type="text/javascript" src="js/index.min.js"></script>
+<!-- Custom scripts -->
+<script type="text/javascript"></script>
+
+</html>
