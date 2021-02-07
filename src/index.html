@@ -29,22 +29,16 @@
     <form id='addBookForm' class="formBox">
       <div class="formBox__inputBox">
         <label for="title">Title:</label>
-        <input class='formBox__dataArea' id='title' name='title' type="text" placeholder="Write the title">
+        <input class='formBox__dataArea' id='titleInput' name='title' type="text" placeholder="Write the title">
       </div>
       <div class="formBox__inputBox">
         <label for="author">Author:</label>
-        <input class='formBox__dataArea' id='author' name='author' type="text" placeholder="Write an author">
+        <input class='formBox__dataArea' id='authorInput' name='author' type="text" placeholder="Write an author">
       </div>
       <div class="formBox__inputBox">
         <label for="category">Category:</label>
-        <select class='formBox__dataArea' id="category" name='category'>
-          <option value="none" selected disabled hidden> Select an Option </option>
-          <option value="crime">Crime</option>
-          <option value="sci-fi">Sci-Fi</option>
-          <option value="fantasy">Fantasy</option>
-          <option value="poem">Poem</option>
-          <option value="drama">Drama</option>
-          <option value="science">Science</option>
+        <select class='formBox__dataArea' id="categorySelect" name='category'>
+          <!-- DYNAMIC RENDERING -->
         </select>
       </div>
       <div class="formBox__inputBox">
@@ -70,25 +64,15 @@
 
     <!-- Other buttons -->
     <div class='btnBox'>
-      <button class='btnBox__btn btn'>Remove all books</button>
-      <button class='btnBox__btn btn'>Add new category</button>
-      <button class='btnBox__btn btn'>Print books list</button>
+      <button id='removeAllBooks' class='btnBox__btn btn'>Remove all books</button>
+      <button id='addNewCategory' class='btnBox__btn btn'>Add new category</button>
+      <button id='print' class='btnBox__btn btn'>Print books list</button>
     </div>
-
-    <!--Books counting list-->
-    <ul class='flexBox'>
-      <li id='booksQuantity'>Books quantity:</li>
-      <li>Crime:</li>
-      <li>Sci-fi:</li>
-      <li>Poem:</li>
-      <li>Drama:</li>
-      <li>Science:</li>
-    </ul>
 
     <!--Main table-->
     <button class='sortNFilterBtn btn btnCorrectColors'>Filter</button>
     <button class='sortNFilterBtn btn btnCorrectColors'>Sort</button>
-    <table class='table'>
+    <table id='tableId' class='table'>
       <thead>
         <tr>
           <td class='table__td'>Title</td>
@@ -98,8 +82,17 @@
           <td class='table__td'></td>
         </tr>
       </thead>
-      <tbody id='#book-list'></tbody>
+      <tbody id='book-list'>
+        <!-- DYNAMIC RENDERING -->
+      </tbody>
     </table>
+    <div id='modalContainer' class='modalContainer'></div>
+
+    <!--Books counting list-->
+    <div id='booksQuantity' class='categories' style="margin-top: 15px;">Books quantity:</div>
+    <ul id='categoriesId' class='categories'>
+      <!-- DYNAMIC RENDERING -->
+    </ul>
 
   </div>
 

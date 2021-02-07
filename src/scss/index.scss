@@ -49,12 +49,22 @@ body{
     width: 92vw;
     margin: 0 auto 3vw auto;
     height: 8vw;
+    display: flex;
+    justify-content: center;
   }
+}
+
+.modalWidthCorrect{
+  width: 50vw;
+}
+
+.modalSubmitCorrect{
+  width: 69vw;
 }
 
 .btn {
   font-size: 0.8em;
-  display: inline-block;
+  //display: inline-block;
   border: none;
   border-radius: 5px;
   text-decoration: none;
@@ -108,7 +118,7 @@ body{
   }
 }
 
-.flexBox {
+.categories {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -124,6 +134,49 @@ body{
   width: 10vw;
   margin: 3vw 0;
 }
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.modal__closeBox{
+  display:flex;
+  justify-content: flex-end;
+}
+
+.close {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 //Change table display for small screans:
 @media screen and (max-width: 500px){
@@ -216,12 +269,20 @@ body{
     }
   }
 
+  .modalWidthCorrect{
+    width: 58vw;
+  }
+
+  .modalSubmitCorrect{
+    width: 72vw;
+  }
+
   .btnBox__btn {
     height: 6vw;
     margin: 1vw auto;
   }
 
-  .flexBox li {
+  .categories li {
     padding: 0.5vw;
   }
 
@@ -256,6 +317,14 @@ body{
     }
   }
 
+  .modalWidthCorrect{
+    width: 59vw;
+  }
+
+  .modalSubmitCorrect{
+    width: 76vw;
+  }
+
   .header__title {
     padding: 0 4vw 2vw 4vw;
   }
@@ -266,8 +335,8 @@ body{
     font-size: 0.7em;
   }
 
-  .flexBox li {
-    margin: 1vw 0;
+  .categories li {
+    margin: 2vw 0 0 0;
   }
 
   .sortNFilterBtn {
@@ -312,6 +381,18 @@ body{
     }
   }
 
+  .modalWidthCorrect{
+    width: 789px;
+  }
+
+  .modalSubmitCorrect{
+    width: 1010px;
+  }
+
+  .modal-content {
+    width: 1046px;
+}
+
   .header__title {
     padding: 0 52px 26px 52px;
   }
@@ -322,7 +403,7 @@ body{
     width: 370px;
   }
 
-  .flexBox li {
+  .categories li {
     margin: 13px 0;
     width: 455px;
     font-size: 0.85em;
