@@ -70,8 +70,20 @@
     </div>
 
     <!--Main table-->
+    <!-- zrobić haczyk id na guzik sort,
+          dodac listenrer który po kliknieciu pokazuje modal z 4 opcjami sortowania (4 buttony),
+          stworzyć ten modal - analogicznie od poprzedniego - czyli stworzyc juz ten element dać mu display none a jak klikniemy to sie pojawia.
+          stworzyć uniwersalną funkcje sortującą ( argument ma wskazywać po czym mamy sortować - 4 opcje)
+          dodać buttonom powyższą funkcje i każdemu przekazać inny argument, -->
     <button class='sortNFilterBtn btn btnCorrectColors'>Filter</button>
-    <button class='sortNFilterBtn btn btnCorrectColors'>Sort</button>
+    <button id='sort' class='sortNFilterBtn btn btnCorrectColors'>Sort</button>
+    <div id='sortModalId' class="sortModal">
+      <button id='sortByTitle' class="sortModal__btn btn btnCorrectColors">by title</button>
+      <button id='sortByAuthor' class="sortModal__btn btn btnCorrectColors">by author</button>
+      <button id='sortByCategory' class="sortModal__btn btn btnCorrectColors">by category</button>
+      <button id='sortByPriority' class="sortModal__btn btn btnCorrectColors">by priority</button>
+    </div>
+    
     <table id='tableId' class='table'>
       <thead>
         <tr>

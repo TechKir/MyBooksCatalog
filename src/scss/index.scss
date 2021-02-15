@@ -11,6 +11,20 @@ body{
   // background-size: cover;
 }
 
+.sortModal{
+  position: absolute;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-left: 2px;
+  height: 87px;
+  width: 100px;
+  display: none;
+  &__btn{
+    padding: 4px;
+    width: 100px;
+  }
+}
+
 .container {
   padding: 4vw;
 }

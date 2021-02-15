@@ -26,11 +26,33 @@ document.addEventListener('DOMContentLoaded', () => {
   const titleInput = document.getElementById('titleInput');
   const authorInput = document.getElementById('authorInput');
   const radioInputs = document.querySelectorAll('.formBox__radio');
+  const sortBtn = document.getElementById('sort');
+  const sortModalId = document.getElementById('sortModalId');
+  const sortByTitleBtn = document.getElementById('sortByTitle');
+  const sortByAuthorBtn = document.getElementById('sortByAuthor');
+  const sortByCategoryBtn = document.getElementById('sortByCategory');
+  const sortByPriorityBtn = document.getElementById('sortByPriority');
 
   addBookForm.addEventListener('submit', addBook);
   removeList.addEventListener('click', removeAllBooks);
   printBtn.addEventListener('click', printList);
   addNewCategory.addEventListener('click', addCategory);
+
+  // SORT LOGIC //
+  sortBtn.addEventListener('focusin', showSortOptions);
+  sortBtn.addEventListener('focusout', hideSortOptions);
+  sortByTitleBtn.addEventListener('click', function (){
+    sortBooks('title');
+  });
+  sortByAuthorBtn.addEventListener('click', function (){
+    sortBooks('author');
+  });
+  sortByCategoryBtn.addEventListener('click', function (){
+    sortBooks('category');
+  });
+  sortByPriorityBtn.addEventListener('click', function (){
+    sortBooks('priority');
+  });
 
   // TAKES BOOKS FROM LOCAL STORAGE AND DISPLAY THEM //
   const ls = window.localStorage;
@@ -50,6 +72,35 @@ document.addEventListener('DOMContentLoaded', () => {
   setBookCounter();
 
   // //////////////////// FUNCTIONS ////////////////////////
+
+  function showSortOptions () {
+    sortModalId.style.display = 'inline-block';
+  }
+
+  function hideSortOptions () {
+    setTimeout( function () {
+      sortModalId.style.display = 'none'
+    }, 100)
+  }
+
+  function sortBooks (sortBy) {
+    if (sortBy === 'priority') {
+      booksArr.sort( function (bookA, bookB){
+        if (bookA[sortBy] > bookB[sortBy]) return -1;
+        if (bookA[sortBy] < bookB[sortBy]) return 1;
+        return 0
+      })
+    } else {
+      booksArr.sort( function (bookA, bookB){
+        if (bookA[sortBy] > bookB[sortBy]) return 1;
+        if (bookA[sortBy] < bookB[sortBy]) return -1;
+        return 0
+      })
+    }
+    ls.setItem('books', JSON.stringify(booksArr));
+    displayBooks(booksArr);
+  }
+
   function displayCategories(categories) {
     // ADD DEFAULT FIRST OPTION:
     const defaultOption = document.createElement('option');
