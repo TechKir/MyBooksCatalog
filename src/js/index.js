@@ -32,27 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortByAuthorBtn = document.getElementById('sortByAuthor');
   const sortByCategoryBtn = document.getElementById('sortByCategory');
   const sortByPriorityBtn = document.getElementById('sortByPriority');
+  const filterByAuthorLi = document.getElementById('filterByAuthor');
+  const filterByCategoryLi = document.getElementById('filterByCategory');
+  const filterByPriorityLi = document.getElementById('filterByPriority');
 
   addBookForm.addEventListener('submit', addBook);
   removeList.addEventListener('click', removeAllBooks);
   printBtn.addEventListener('click', printList);
   addNewCategory.addEventListener('click', addCategory);
-
-  // SORT LOGIC //
-  sortBtn.addEventListener('focusin', showSortOptions);
-  sortBtn.addEventListener('focusout', hideSortOptions);
-  sortByTitleBtn.addEventListener('click', function (){
-    sortBooks('title');
-  });
-  sortByAuthorBtn.addEventListener('click', function (){
-    sortBooks('author');
-  });
-  sortByCategoryBtn.addEventListener('click', function (){
-    sortBooks('category');
-  });
-  sortByPriorityBtn.addEventListener('click', function (){
-    sortBooks('priority');
-  });
 
   // TAKES BOOKS FROM LOCAL STORAGE AND DISPLAY THEM //
   const ls = window.localStorage;
@@ -68,10 +55,60 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const categories = JSON.parse(ls.getItem('categories'));
   displayCategories(categories);
-
+  displayFilterOptions(booksArr, categories)
   setBookCounter();
 
   // //////////////////// FUNCTIONS ////////////////////////
+  // [{"title":"Czerwony Kapturek","author":"Charles Perrault","category":"fantasy","priority":"1"},{"title":"Kubuś Puchatek","author":"A.A. Milne","category":"fantasy","priority":"3"},{"title":"Dziewczyna z Tatuażem","author":"Stieg Larsson","category":"crime","priority":"5"},{"title":"Dlaczego Żyjemy","author":"Wiesława Szymborska","category":"poem","priority":"2"},{"title":"Wszechświat z Niczego","author":"Lawrence Krauss","category":"science","priority":"5"}]
+  
+  // FILTER LOGIC //
+  function displayFilterOptions(books, categories) {
+
+    books.forEach( function(book) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      const span = document.createElement('span');
+
+      span.innerHTML = `${book.author} &nbsp &nbsp`;
+      input.setAttribute('type', 'checkbox');
+      input.setAttribute('value', book.author);
+      label.setAttribute('class', 'filterBox__label')
+      label.appendChild(input);
+      label.appendChild(span);
+      filterByAuthorLi.appendChild(label);   
+    })
+
+    categories.forEach( function(category) {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      const span = document.createElement('span');
+
+      span.innerHTML = `${category} &nbsp &nbsp`;
+      input.setAttribute('type', 'checkbox');
+      input.setAttribute('value', category);
+      label.setAttribute('class', 'filterBox__label')
+      label.appendChild(input);
+      label.appendChild(span);
+      filterByCategoryLi.appendChild(label);   
+    })
+  }
+
+  // SORT LOGIC //
+  sortBtn.addEventListener('focusin', showSortOptions);
+  sortBtn.addEventListener('focusout', hideSortOptions);
+  sortByTitleBtn.addEventListener('click', function (){
+    sortBooks('title');
+  });
+  sortByAuthorBtn.addEventListener('click', function (){
+    sortBooks('author');
+  });
+  sortByCategoryBtn.addEventListener('click', function (){
+    sortBooks('category');
+  });
+  sortByPriorityBtn.addEventListener('click', function (){
+    console.log('hej kliknalem priority!!')
+    sortBooks('priority');
+  });  
 
   function showSortOptions () {
     sortModalId.style.display = 'inline-block';
@@ -143,6 +180,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
+    filterByAuthorLi.innerHTML = 'authors: &nbsp';
+    filterByCategoryLi.innerHTML = 'categories: &nbsp';
 
     const category = window.prompt('Add new category');
     if (category === null){
@@ -151,6 +190,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     categories.push(category);
     ls.setItem('categories', JSON.stringify(categories));
+    displayFilterOptions(booksArr, categories);
     displayCategories(categories);
   }
 
@@ -200,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </div>
               <div class="formBox__inputBox">
                 <label for="category">Category:</label>
-                <select class='formBox__dataArea modalWidthCorrect' id="category" name='category'>
+                <select class='formBox__dataArea modalWidthCorrect' name='category'>
                   <option value="crime" ${book.category === 'crime' && 'selected'}>
                   Crime</option>
                   <option value="sci-fi" ${book.category === 'sci-fi' && 'selected'}>
@@ -259,6 +299,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
         categoriesList.innerHTML = '';
         categorySelect.innerHTML = '';
+        filterByAuthorLi.innerHTML = 'authors: &nbsp';
+        filterByCategoryLi.innerHTML = 'categories: &nbsp';
+    
+        displayFilterOptions(booksArr, categories);
         displayCategories(categories);
         setBookCounter();
       }
@@ -305,6 +349,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
         categoriesList.innerHTML = '';
         categorySelect.innerHTML = '';
+        filterByAuthorLi.innerHTML = 'authors: &nbsp';
+        filterByCategoryLi.innerHTML = 'categories: &nbsp';
+    
+        displayFilterOptions(booksArr, categories);
         displayCategories(categories);
       }
 
@@ -340,6 +388,10 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
+    filterByAuthorLi.innerHTML = 'authors: &nbsp';
+    filterByCategoryLi.innerHTML = 'categories: &nbsp';
+
+    displayFilterOptions(booksArr, categories);
     displayCategories(categories);
   };
 
@@ -351,6 +403,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
+    filterByAuthorLi.innerHTML = 'authors: &nbsp';
+    filterByCategoryLi.innerHTML = 'categories: &nbsp';
+
+    displayFilterOptions(booksArr, categories);
     displayCategories(categories);
     setBookCounter();
   }

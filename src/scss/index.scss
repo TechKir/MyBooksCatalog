@@ -11,7 +11,7 @@ body{
   // background-size: cover;
 }
 
-.sortModal{
+.sortModal {
   position: absolute;
   background-color: whitesmoke;
   border-radius: 5px;
@@ -22,6 +22,25 @@ body{
   &__btn{
     padding: 4px;
     width: 100px;
+  }
+}
+
+.filterBox {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 1.3vw;
+  margin: 1vw 0;
+  font-size: 0.8em;
+  &__li {
+    list-style: none;
+    font-weight: 300;
+    margin: 0.5vw 0;
+  }
+  &__label {
+    font-weight: 300;
+    input {
+      margin-right: 0.3vw;
+    }
   }
 }
 
@@ -245,7 +264,6 @@ body{
     table-layout: fixed;
     width: 92vw;
     &__td {
-      vertical-align: bottom;
       border-bottom: 2px solid #dee2e6;
       padding: .75rem;
       border-top: 1px solid #dee2e6;
@@ -354,7 +372,7 @@ body{
   }
 
   .sortNFilterBtn {
-    margin: 2vw 0 1vw 0;
+    margin: 0vw 0 1vw 0;
     width: 4vw;
   }
 }
@@ -424,7 +442,7 @@ body{
   }
 
   .sortNFilterBtn {
-    margin: 20px 0 5px 0;
+    margin: 0px 0 5px 0;
     width: 52px;
   }
 
