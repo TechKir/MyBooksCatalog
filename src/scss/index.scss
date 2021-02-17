@@ -7,65 +7,8 @@
 
 body{
   font-size: 4vw;
-  // background-image: url('../img/top-view-of-books-with-copy-space.jpg');
-  // background-size: cover;
-}
-
-.sortModal {
-  position: absolute;
-  background-color: whitesmoke;
-  border-radius: 5px;
-  margin-left: 2px;
-  height: 83px;
-  width: 100px;
-  margin: 3vw 0.3vw;
-  font-size: 15px;
-  display: none;
-  &__btn{
-    padding: 4px;
-    width: 100px;
-  }
-}
-
-.filterBox {
-  background-color: whitesmoke;
-  border-radius: 5px;
-  padding: 1.3vw;
-  margin: 1vw 0;
-  font-size: 0.8em;
-  li:first-child{
-    select {
-      margin-left: 3.3vw;
-    }
-  }
-  li:nth-child(2) {
-    label:first-child {
-      margin-left: 0.2vw;
-    }
-  }
-  li:last-child {
-    label:first-child {
-      margin-left: 2vw;
-    }
-  }
-  &__li {
-    list-style: none;
-    font-weight: 300;
-    margin: 0.5vw 0;
-
-  }
-  &__label {
-    font-weight: 300;
-    display: inline-block;
-    input {
-      margin-right: 0.3vw;
-      width: 0.6em;
-      height: 0.6em;
-    }
-  }
-  &__select{
-    font-size: 0.8em;
-  }
+  background-image: url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80');
+  background-size: cover;
 }
 
 .container {
@@ -187,35 +130,89 @@ body{
   }
 }
 
-.sortNFilterBtn{
+.sortModal {
+  position: absolute;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  margin-left: 2px;
+  height: 83px;
+  width: 100px;
+  margin: 3vw 0.3vw;
+  font-size: 15px;
+  display: none;
+  &__btn{
+    padding: 4px;
+    width: 100px;
+  }
+}
+
+.filterBox {
+  background-color: whitesmoke;
+  border-radius: 5px;
+  padding: 1.3vw;
+  margin: 1vw 0;
+  font-size: 0.8em;
+  li:first-child{
+    select {
+      margin-left: 3.3vw;
+    }
+  }
+  li:nth-child(2) {
+    label:first-child {
+      margin-left: 0.2vw;
+    }
+  }
+  li:last-child {
+    label:first-child {
+      margin-left: 2vw;
+    }
+  }
+  &__li {
+    list-style: none;
+    font-weight: 300;
+    margin: 0.5vw 0;
+
+  }
+  &__label {
+    font-weight: 300;
+    display: inline-block;
+    input {
+      margin-right: 0.3vw;
+      width: 0.6em;
+      height: 0.6em;
+    }
+  }
+  &__select{
+    font-size: 0.8em;
+  }
+}
+
+.sortBtn{
   width: 10vw;
   margin: 3vw 0;
 }
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  height: 100%;
+  //overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 }
 
-/* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
 }
 
-/* The Close Button */
 .modal__closeBox{
   display:flex;
   justify-content: flex-end;
@@ -234,6 +231,19 @@ body{
   cursor: pointer;
 }
 
+.marginFix {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.attribution {
+  font-size: 0.4em;
+  font-weight: 300;
+  a{
+    color: black;
+    text-decoration: none;
+  }
+}
 
 //Change table display for small screans:
 @media screen and (max-width: 500px){
@@ -283,6 +293,7 @@ body{
 
 //Change table display for standard:
 @media screen and (min-width:501px){
+
   .table{
     border-collapse: collapse;
     text-align: center;
@@ -357,17 +368,16 @@ body{
     padding: 0.5vw;
   }
 
-  .sortNFilterBtn {
+  .sortBtn {
     width: 6vw;
     margin: 1vw 0;
   }
 
-  .filterBox__label input {
-    width: 0.8em;
-    height: 0.8em;
-  }
-
-  .filterBox{
+  .filterBox {
+    &__label input {
+      width: 0.8em;
+      height: 0.8em;
+    }
     li:first-child{
       select {
         margin-left: 2.2vw;
@@ -384,13 +394,14 @@ body{
       }
     }
   }
-
 }
 
 @media screen and (min-width:901px) and (max-width:1300px){
+
   body {
     font-size: 1.7vw;
   }
+
   .formBox {
     &__radio {
       width: 1.2vw;
@@ -434,7 +445,7 @@ body{
     margin: 2vw 0 0 0;
   }
 
-  .sortNFilterBtn {
+  .sortBtn {
     margin: 0vw 0 1vw 0;
     width: 4vw;
   }
@@ -446,12 +457,11 @@ body{
     font-size: 17px;
   }
 
-  .filterBox__label input {
-    width: 0.9em;
-    height: 0.9em;
-  }
-
-  .filterBox{
+  .filterBox {
+    &__label input {
+      width: 0.9em;
+      height: 0.9em;
+    }
     li:first-child{
       select {
         margin-left: 1.7vw;
@@ -534,7 +544,7 @@ body{
     font-size: 0.85em;
   }
 
-  .sortNFilterBtn {
+  .sortBtn {
     margin: 0px 0 5px 0;
     width: 52px;
   }
@@ -553,28 +563,31 @@ body{
     font-size: 17px;
   }
 
-  .filterBox__label input {
-    width: 1.1em;
-    height: 1.1em;
-  }
-
-  
-  .filterBox{
+  .filterBox {
+    padding: 20px;
+    margin: 10px 0;
+    &__label input {
+      width: 1.1em;
+      height: 1.1em;
+      margin-right: 3px;
+    }
+    &__li{
+      margin: 7px 0;
+    }
     li:first-child{
       select {
-        margin-left: 1.3vw;
+        margin-left: 18px;
       }
     }
     li:nth-child(2) {
       label:first-child {
-        margin-left: 0.2vw;
+        margin-left: 2px;
       }
     }
     li:last-child {
       label:first-child {
-        margin-left: 0.8vw;
+        margin-left: 11px;
       }
     }
   }
-
 }

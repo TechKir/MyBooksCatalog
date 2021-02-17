@@ -11,6 +11,7 @@
 /* eslint-disable no-restricted-syntax */
 
 // PURE VANILLA JS CODE - TASK REQUIREMENT. WITHOUT CLASSES, ARROW FUNCTIONS AND REST GOODIES FROM ES6+ AND FRAMEWORKS LIKE REACT. BECAUSE OF THIS I HAVE TO DISABLE SOME ESLINT MODES. //
+import sampleBooks from './data/sampleBooks.json'; 
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -43,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // TAKES BOOKS FROM LOCAL STORAGE AND DISPLAY THEM //
   const ls = window.localStorage;
   if (ls.getItem('books') === null){
-    ls.setItem('books', JSON.stringify([]));
+    ls.setItem('books', JSON.stringify(sampleBooks));
   };
   if (ls.getItem('categories') === null){
     ls.setItem('categories', JSON.stringify(['crime', 'sci-fi', 'fantasy', 'poem', 'drama', 'science']));
@@ -58,8 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setBookCounter();
 
   // //////////////////// FUNCTIONS ////////////////////////
-  // [{"title":"Czerwony Kapturek","author":"Charles Perrault","category":"fantasy","priority":"1"},{"title":"Kubuś Puchatek","author":"A.A. Milne","category":"fantasy","priority":"3"},{"title":"Dziewczyna z Tatuażem","author":"Stieg Larsson","category":"crime","priority":"5"},{"title":"Dlaczego Żyjemy","author":"Wiesława Szymborska","category":"poem","priority":"2"},{"title":"Wszechświat z Niczego","author":"Lawrence Krauss","category":"science","priority":"5"}]
-  
+
   // FILTER LOGIC //
   function displayFilterOptions(books, categories) {
     
