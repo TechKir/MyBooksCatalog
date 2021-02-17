@@ -72,9 +72,15 @@
     <div class="filterBox">
       <p>Filters:</p>
       <ul>
-        <li id='filterByAuthor' class='filterBox__li'>authors: &nbsp<!-- DYNAMIC RENDERING --></li>
-        <li id='filterByCategory' class='filterBox__li'>categores: &nbsp<!-- DYNAMIC RENDERING --></li>
-        <li id='filterByPriority' class='filterBox__li'>priorities: &nbsp 
+        <li class='filterBox__li'>
+          <label>authors:</label>
+          <select id='filterByAuthor' class='filterBox__select'>
+            <!-- DYNAMIC RENDERING -->
+          </select>
+        </li>
+        <li id='filterByCategory' class='filterBox__li'>categores:
+          <!-- DYNAMIC RENDERING --></li>
+        <li class='filterBox__li'>priorities:
           <label class='filterBox__label' for=""><input type="checkbox" value='1'>1</label>&nbsp &nbsp
           <label class='filterBox__label' for=""><input type="checkbox" value='2'>2</label>&nbsp &nbsp
           <label class='filterBox__label' for=""><input type="checkbox" value='3'>3</label>&nbsp &nbsp
@@ -95,7 +101,7 @@
     <!--Main table-->
     <table id='tableId' class='table'>
       <thead>
-        <tr>
+        <tr class='table__mainRow'>
           <td class='table__td'>Title</td>
           <td class='table__td'>Author</td>
           <td class='table__td'>Category</td>

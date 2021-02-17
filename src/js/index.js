@@ -32,9 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortByAuthorBtn = document.getElementById('sortByAuthor');
   const sortByCategoryBtn = document.getElementById('sortByCategory');
   const sortByPriorityBtn = document.getElementById('sortByPriority');
-  const filterByAuthorLi = document.getElementById('filterByAuthor');
+  const filterByAuthorSelect = document.getElementById('filterByAuthor');
   const filterByCategoryLi = document.getElementById('filterByCategory');
-  const filterByPriorityLi = document.getElementById('filterByPriority');
 
   addBookForm.addEventListener('submit', addBook);
   removeList.addEventListener('click', removeAllBooks);
@@ -63,20 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // FILTER LOGIC //
   function displayFilterOptions(books, categories) {
-
+    
     books.forEach( function(book) {
-      const label = document.createElement('label');
-      const input = document.createElement('input');
-      const span = document.createElement('span');
-
-      span.innerHTML = `${book.author} &nbsp &nbsp`;
-      input.setAttribute('type', 'checkbox');
-      input.setAttribute('value', book.author);
-      label.setAttribute('class', 'filterBox__label')
-      label.appendChild(input);
-      label.appendChild(span);
-      filterByAuthorLi.appendChild(label);   
-    })
+      const option = document.createElement('option');
+      option.setAttribute('value', book.author);
+      option.innerHTML = book.author;
+      filterByAuthorSelect.appendChild(option); 
+    }) 
 
     categories.forEach( function(category) {
       const label = document.createElement('label');
@@ -106,7 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sortBooks('category');
   });
   sortByPriorityBtn.addEventListener('click', function (){
-    console.log('hej kliknalem priority!!')
     sortBooks('priority');
   });  
 
@@ -177,17 +168,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function addCategory() {
-    // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
-    categoriesList.innerHTML = '';
-    categorySelect.innerHTML = '';
-    filterByAuthorLi.innerHTML = 'authors: &nbsp';
-    filterByCategoryLi.innerHTML = 'categories: &nbsp';
 
     const category = window.prompt('Add new category');
     if (category === null){
-      displayCategories(categories);
       return
     }
+
+    // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
+    categoriesList.innerHTML = '';
+    categorySelect.innerHTML = '';
+    filterByAuthorSelect.innerHTML = '';
+    filterByCategoryLi.innerHTML = 'categories: &nbsp';
+
     categories.push(category);
     ls.setItem('categories', JSON.stringify(categories));
     displayFilterOptions(booksArr, categories);
@@ -299,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
         categoriesList.innerHTML = '';
         categorySelect.innerHTML = '';
-        filterByAuthorLi.innerHTML = 'authors: &nbsp';
+        filterByAuthorSelect.innerHTML = '';
         filterByCategoryLi.innerHTML = 'categories: &nbsp';
     
         displayFilterOptions(booksArr, categories);
@@ -349,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
         categoriesList.innerHTML = '';
         categorySelect.innerHTML = '';
-        filterByAuthorLi.innerHTML = 'authors: &nbsp';
+        filterByAuthorSelect.innerHTML = '';
         filterByCategoryLi.innerHTML = 'categories: &nbsp';
     
         displayFilterOptions(booksArr, categories);
@@ -388,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
-    filterByAuthorLi.innerHTML = 'authors: &nbsp';
+    filterByAuthorSelect.innerHTML = '';
     filterByCategoryLi.innerHTML = 'categories: &nbsp';
 
     displayFilterOptions(booksArr, categories);
@@ -403,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
-    filterByAuthorLi.innerHTML = 'authors: &nbsp';
+    filterByAuthorSelect.innerHTML = '';
     filterByCategoryLi.innerHTML = 'categories: &nbsp';
 
     displayFilterOptions(booksArr, categories);

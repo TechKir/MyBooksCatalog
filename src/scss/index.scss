@@ -16,8 +16,10 @@ body{
   background-color: whitesmoke;
   border-radius: 5px;
   margin-left: 2px;
-  height: 87px;
+  height: 83px;
   width: 100px;
+  margin: 3vw 0.3vw;
+  font-size: 15px;
   display: none;
   &__btn{
     padding: 4px;
@@ -31,16 +33,38 @@ body{
   padding: 1.3vw;
   margin: 1vw 0;
   font-size: 0.8em;
+  li:first-child{
+    select {
+      margin-left: 3.3vw;
+    }
+  }
+  li:nth-child(2) {
+    label:first-child {
+      margin-left: 0.2vw;
+    }
+  }
+  li:last-child {
+    label:first-child {
+      margin-left: 2vw;
+    }
+  }
   &__li {
     list-style: none;
     font-weight: 300;
     margin: 0.5vw 0;
+
   }
   &__label {
     font-weight: 300;
+    display: inline-block;
     input {
       margin-right: 0.3vw;
+      width: 0.6em;
+      height: 0.6em;
     }
+  }
+  &__select{
+    font-size: 0.8em;
   }
 }
 
@@ -234,6 +258,7 @@ body{
 		border-bottom: 1px solid #eee; 
 		position: relative;
 		padding-left: 50%; 
+    z-index: -100;
 	}
 	
 	td:before { 
@@ -263,6 +288,8 @@ body{
     text-align: center;
     table-layout: fixed;
     width: 92vw;
+    z-index: -100;
+    font-weight: 300;
     &__td {
       border-bottom: 2px solid #dee2e6;
       padding: .75rem;
@@ -270,6 +297,14 @@ body{
       width: 16vw;
       word-wrap:break-word;
     }
+    tr:nth-child(2n) {
+      background-color: rgba(245, 245, 245, 0.25);
+    }
+    &__mainRow {
+      background-color: whitesmoke;
+      font-weight: normal;
+    }
+
   }
 }
 
@@ -309,6 +344,10 @@ body{
     width: 72vw;
   }
 
+  .sortModal {
+    margin: 1vw 0.3vw;
+  }
+
   .btnBox__btn {
     height: 6vw;
     margin: 1vw auto;
@@ -322,6 +361,30 @@ body{
     width: 6vw;
     margin: 1vw 0;
   }
+
+  .filterBox__label input {
+    width: 0.8em;
+    height: 0.8em;
+  }
+
+  .filterBox{
+    li:first-child{
+      select {
+        margin-left: 2.2vw;
+      }
+    }
+    li:nth-child(2) {
+      label:first-child {
+        margin-left: 0.2vw;
+      }
+    }
+    li:last-child {
+      label:first-child {
+        margin-left: 1.25vw;
+      }
+    }
+  }
+
 }
 
 @media screen and (min-width:901px) and (max-width:1300px){
@@ -374,6 +437,36 @@ body{
   .sortNFilterBtn {
     margin: 0vw 0 1vw 0;
     width: 4vw;
+  }
+
+  .sortModal {
+    margin: 0 0.3vw;
+    height: 92px;
+    width: 102px;
+    font-size: 17px;
+  }
+
+  .filterBox__label input {
+    width: 0.9em;
+    height: 0.9em;
+  }
+
+  .filterBox{
+    li:first-child{
+      select {
+        margin-left: 1.7vw;
+      }
+    }
+    li:nth-child(2) {
+      label:first-child {
+        margin-left: 0.2vw;
+      }
+    }
+    li:last-child {
+      label:first-child {
+        margin-left: 0.95vw;
+      }
+    }
   }
 }
 
@@ -450,6 +543,37 @@ body{
     width: 1096px;
     &__td {
       width: 200px;
+    }
+  }
+
+  .sortModal {
+    margin: 0 0.3vw;
+    height: 92px;
+    width: 102px;
+    font-size: 17px;
+  }
+
+  .filterBox__label input {
+    width: 1.1em;
+    height: 1.1em;
+  }
+
+  
+  .filterBox{
+    li:first-child{
+      select {
+        margin-left: 1.3vw;
+      }
+    }
+    li:nth-child(2) {
+      label:first-child {
+        margin-left: 0.2vw;
+      }
+    }
+    li:last-child {
+      label:first-child {
+        margin-left: 0.8vw;
+      }
     }
   }
 
