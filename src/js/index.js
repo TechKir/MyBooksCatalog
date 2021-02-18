@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortByPriorityBtn = document.getElementById('sortByPriority');
   const filterByAuthorSelect = document.getElementById('filterByAuthor');
   const filterByCategoryLi = document.getElementById('filterByCategory');
+  const filterPrioritiesInputs = document.querySelectorAll('.filterBox li:last-child label input')
 
   addBookForm.addEventListener('submit', addBook);
   removeList.addEventListener('click', removeAllBooks);
@@ -82,7 +83,51 @@ document.addEventListener('DOMContentLoaded', () => {
       label.appendChild(input);
       label.appendChild(span);
       filterByCategoryLi.appendChild(label);   
-    })
+    })   
+  }
+
+  // filterCategoriesInputs.forEach( function(input) {
+  //   input.addEventListener('change', categoriesFilter);
+  // })
+
+  // function categoriesFilter(e) {
+  //   const filterCategoriesInputs = document.querySelectorAll('.filterBox li:nth-child(2) label input');
+  //   const allBooksTr = document.querySelectorAll('#book-list tr');
+
+  // }
+
+  filterPrioritiesInputs.forEach( function(input) {
+    input.addEventListener('change', prioritiesFilter);
+  })
+   
+  let checkedValues = [];
+  function prioritiesFilter(e) {
+    const allBooksTr = document.querySelectorAll('#book-list tr');
+    
+    if (e) {
+      if (e.target.checked) {
+        checkedValues.push(e.target.value);
+      } else if (!e.target.checked) {
+        checkedValues = checkedValues.filter( function(value) {
+          return value !== e.target.value
+        });
+      }
+    }
+
+    allBooksTr.forEach( function (tr) {
+      if (checkedValues.length === 0){
+        tr.removeAttribute('style')
+      } else {
+        const isTrHasValue = checkedValues.some( function (value) {
+          return value === tr.getAttribute('data-priority')
+        })
+        if (!isTrHasValue ) {
+          tr.setAttribute('style', 'display:none')
+        } else {
+          tr.removeAttribute('style')
+        }
+      }
+    }) 
   }
 
   // SORT LOGIC //
@@ -90,15 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
   sortBtn.addEventListener('focusout', hideSortOptions);
   sortByTitleBtn.addEventListener('click', function (){
     sortBooks('title');
+    prioritiesFilter();
   });
   sortByAuthorBtn.addEventListener('click', function (){
     sortBooks('author');
+    prioritiesFilter();
   });
   sortByCategoryBtn.addEventListener('click', function (){
     sortBooks('category');
+    prioritiesFilter();
   });
   sortByPriorityBtn.addEventListener('click', function (){
     sortBooks('priority');
+    prioritiesFilter();
   });  
 
   function showSortOptions () {
@@ -194,6 +243,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // DYNAMIC DISPLAY ALL BOOKS WITH EDIT/DELETE OPTION AND THEIR EDIT MODALS //
     books.forEach( function(book, index){
       const row = document.createElement('tr');
+      
+      row.setAttribute('data-title', book.title);
+      row.setAttribute('data-author', book.author);
+      row.setAttribute('data-category', book.category);
+      row.setAttribute('data-priority', book.priority);
 
       row.innerHTML = `
       <td class='table__td'>${book.title}</td>
@@ -385,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayFilterOptions(booksArr, categories);
     displayCategories(categories);
+    prioritiesFilter();
   };
 
   function removeAllBooks(){
