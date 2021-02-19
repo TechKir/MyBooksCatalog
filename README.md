@@ -1,4 +1,5 @@
 # MyBooksCatalog
+![Appscreen](app.screen.png)
 This app is a simple book catalog where you can create books list you want to read. After you add some books you have options to:
 - delete them or whole the list,
 - edit them,
@@ -6,6 +7,9 @@ This app is a simple book catalog where you can create books list you want to re
 - print/save a list,
 - see quantity of each category.<br>
  I created it using technologies such as like HTML5, CSS, SASS, Vanilla Javascript, webpack.
+
+# <h1> Live preview </h1>
+https://dreamy-mirzakhani-f85deb.netlify.app/
 
 # <h1>Setup on your machine (requirements : installed Node.js) </h1>
 1. Clone repository,<br>
