@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const filterByAuthorSelect = document.getElementById('filterByAuthor');
   const filterByCategoryLi = document.getElementById('filterByCategory');
   const filterPrioritiesInputs = document.querySelectorAll('.filterBox li:last-child label input')
+  const filterAuthorSelect = document.querySelector('.filterBox li:first-child select');
 
   addBookForm.addEventListener('submit', addBook);
   removeList.addEventListener('click', removeAllBooks);
@@ -59,11 +60,27 @@ document.addEventListener('DOMContentLoaded', () => {
   displayFilterOptions(booksArr, categories)
   setBookCounter();
 
+  // STARTER FOR FILTER FUNCTIONS:
+  let filterCategoriesInputs; 
+  filterPrioritiesInputs.forEach( function(input) {
+    input.addEventListener('change', booksFilter);
+  })
+   
+  let checkedPriorities = [];
+  let checkedCategories = []; 
+  hookFilterCategoriesInputs();
+
+  filterAuthorSelect.addEventListener('change', booksFilter);
+  let authorSelected = null;
   // //////////////////// FUNCTIONS ////////////////////////
 
   // FILTER LOGIC //
   function displayFilterOptions(books, categories) {
-    
+
+    const option = document.createElement('option');
+    option.setAttribute('value', 'null');
+    filterByAuthorSelect.appendChild(option);
+
     books.forEach( function(book) {
       const option = document.createElement('option');
       option.setAttribute('value', book.author);
@@ -85,47 +102,98 @@ document.addEventListener('DOMContentLoaded', () => {
       filterByCategoryLi.appendChild(label);   
     })   
   }
+  
+  function hookFilterCategoriesInputs() {
+    filterCategoriesInputs = document.querySelectorAll('.filterBox li:nth-child(2) label input');
+    filterCategoriesInputs.forEach( function(input) {
+      input.addEventListener('change', booksFilter);
+    })
+  }
 
-  // filterCategoriesInputs.forEach( function(input) {
-  //   input.addEventListener('change', categoriesFilter);
-  // })
-
-  // function categoriesFilter(e) {
-  //   const filterCategoriesInputs = document.querySelectorAll('.filterBox li:nth-child(2) label input');
-  //   const allBooksTr = document.querySelectorAll('#book-list tr');
-
-  // }
-
-  filterPrioritiesInputs.forEach( function(input) {
-    input.addEventListener('change', prioritiesFilter);
-  })
-   
-  let checkedValues = [];
-  function prioritiesFilter(e) {
+  function booksFilter(e) {
     const allBooksTr = document.querySelectorAll('#book-list tr');
-    
+
+    try {
+      authorSelected = e.target.options[e.target.selectedIndex].value;
+      if ( authorSelected === 'null'){
+        authorSelected = null;
+      }
+    } catch {
+      console.log('nothing happen')
+    }
+
     if (e) {
       if (e.target.checked) {
-        checkedValues.push(e.target.value);
+        e.target.value.length > 1 ? checkedCategories.push(e.target.value) : checkedPriorities.push(e.target.value);
+        
       } else if (!e.target.checked) {
-        checkedValues = checkedValues.filter( function(value) {
+        checkedPriorities = checkedPriorities.filter( function(value) {
+          return value !== e.target.value
+        });
+        checkedCategories = checkedCategories.filter( function(value) {
           return value !== e.target.value
         });
       }
     }
 
     allBooksTr.forEach( function (tr) {
-      if (checkedValues.length === 0){
+      if (checkedPriorities.length === 0 && checkedCategories.length === 0 && authorSelected === null){
         tr.removeAttribute('style')
       } else {
-        const isTrHasValue = checkedValues.some( function (value) {
+
+        const isTrHasPriority = checkedPriorities.some( function (value) {
           return value === tr.getAttribute('data-priority')
         })
-        if (!isTrHasValue ) {
-          tr.setAttribute('style', 'display:none')
-        } else {
+        const isTrHasCategory = checkedCategories.some( function (value) {
+          return value === tr.getAttribute('data-category')
+        })
+
+        if (checkedCategories.length > 0 && checkedPriorities.length > 0 && authorSelected){
+          if (!isTrHasPriority || !isTrHasCategory || tr.getAttribute('data-author') !== authorSelected) {
+            tr.setAttribute('style', 'display:none');
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (authorSelected && checkedPriorities.length > 0) {
+          if (!isTrHasPriority || tr.getAttribute('data-author') !== authorSelected) {
+            tr.setAttribute('style', 'display:none');
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (authorSelected && checkedCategories.length > 0){
+          if (!isTrHasCategory || tr.getAttribute('data-author') !== authorSelected) {
+            tr.setAttribute('style', 'display:none');
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (checkedCategories.length > 0 && checkedPriorities.length > 0){
+          if (!isTrHasPriority || !isTrHasCategory) {
+            tr.setAttribute('style', 'display:none');
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (authorSelected) {
+          if (tr.getAttribute('data-author') !== authorSelected) {
+            tr.setAttribute('style', 'display:none');
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (checkedPriorities.length === 0) {
+          if (!isTrHasCategory ) {
+            tr.setAttribute('style', 'display:none')
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (checkedCategories.length === 0) {
+          if (!isTrHasPriority ) {
+            tr.setAttribute('style', 'display:none')
+          } else {
+            tr.removeAttribute('style')
+          }
+        } else if (authorSelected === null) {
           tr.removeAttribute('style')
         }
+
       }
     }) 
   }
@@ -135,19 +203,19 @@ document.addEventListener('DOMContentLoaded', () => {
   sortBtn.addEventListener('focusout', hideSortOptions);
   sortByTitleBtn.addEventListener('click', function (){
     sortBooks('title');
-    prioritiesFilter();
+    booksFilter();
   });
   sortByAuthorBtn.addEventListener('click', function (){
     sortBooks('author');
-    prioritiesFilter();
+    booksFilter();
   });
   sortByCategoryBtn.addEventListener('click', function (){
     sortBooks('category');
-    prioritiesFilter();
+    booksFilter();
   });
   sortByPriorityBtn.addEventListener('click', function (){
     sortBooks('priority');
-    prioritiesFilter();
+    booksFilter();
   });  
 
   function showSortOptions () {
@@ -351,6 +419,8 @@ document.addEventListener('DOMContentLoaded', () => {
         displayFilterOptions(booksArr, categories);
         displayCategories(categories);
         setBookCounter();
+
+        hookFilterCategoriesInputs();
       }
 
       // EDIT BOOK //
@@ -400,6 +470,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
         displayFilterOptions(booksArr, categories);
         displayCategories(categories);
+
+        hookFilterCategoriesInputs();
       }
 
       setBookCounter();
@@ -432,6 +504,7 @@ document.addEventListener('DOMContentLoaded', () => {
     radioInputs.forEach(function(radioBtn) {
       radioBtn.checked = false;
     })
+
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
     filterByAuthorSelect.innerHTML = '';
@@ -439,7 +512,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayFilterOptions(booksArr, categories);
     displayCategories(categories);
-    prioritiesFilter();
+
+    hookFilterCategoriesInputs();
+    booksFilter();
   };
 
   function removeAllBooks(){
