@@ -5,8 +5,10 @@ This app is a simple book catalog where you can create books list you want to re
 - edit them,
 - add new categories,
 - print/save a list,
+- sort / filter,
 - see quantity of each category.<br>
  I created it using technologies such as like HTML5, CSS, SASS, Vanilla Javascript, webpack.
+ Data saves in local storage. On the first opening, the list fills on book samples.
 
 # <h1> Live preview </h1>
 https://dreamy-mirzakhani-f85deb.netlify.app/
