@@ -36,6 +36,7 @@ body{
     font-size: 1em;
     width: 71vw;
     font-weight: 300;
+    background-color: white;
   }
   &__label {
     font-size: 1.05em;
@@ -44,6 +45,7 @@ body{
   &__radio {
     width: 3.5vw;
     height: 3.5vw;
+    background-color: white;
   }
   &__submit {
     width: 92vw;
@@ -124,9 +126,11 @@ body{
   flex-wrap: wrap;
   li{
     display: flex;
-    width: 35vw;
+    justify-content: center;
+    width: 25vw;
     background-color: whitesmoke;
     margin: 3vw 0;
+    border-radius: 5px;
   }
 }
 
@@ -178,8 +182,8 @@ body{
     display: inline-block;
     input {
       margin-right: 0.3vw;
-      width: 0.6em;
-      height: 0.6em;
+      width: 0.75em;
+      height: 0.75em;
     }
   }
   &__select{
@@ -540,7 +544,7 @@ body{
 
   .categories li {
     margin: 13px 0;
-    width: 455px;
+    width: 290px;
     font-size: 0.85em;
   }
 

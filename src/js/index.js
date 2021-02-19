@@ -66,19 +66,21 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('change', booksFilter);
   })
    
+  let authorSelected = null;
+  let authorSelectedArr = [];
   let checkedPriorities = [];
   let checkedCategories = []; 
   hookFilterCategoriesInputs();
 
   filterAuthorSelect.addEventListener('change', booksFilter);
-  let authorSelected = null;
+
   // //////////////////// FUNCTIONS ////////////////////////
 
   // FILTER LOGIC //
   function displayFilterOptions(books, categories) {
 
     const option = document.createElement('option');
-    option.setAttribute('value', 'null');
+    option.setAttribute('value', 'empty');
     filterByAuthorSelect.appendChild(option);
 
     books.forEach( function(book) {
@@ -114,12 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const allBooksTr = document.querySelectorAll('#book-list tr');
 
     try {
-      authorSelected = e.target.options[e.target.selectedIndex].value;
-      if ( authorSelected === 'null'){
-        authorSelected = null;
+      authorSelected = e.target.options[e.target.selectedIndex].value; // if this line cause error below author array reset not execiute
+      authorSelectedArr = [];
+      authorSelectedArr.push(authorSelected);
+      if ( authorSelected === 'empty'){
+        authorSelectedArr = [];
       }
     } catch {
-      console.log('nothing happen')
+      null
     }
 
     if (e) {
@@ -137,10 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     allBooksTr.forEach( function (tr) {
-      if (checkedPriorities.length === 0 && checkedCategories.length === 0 && authorSelected === null){
+      if (checkedPriorities.length === 0 && checkedCategories.length === 0 && authorSelectedArr.length === 0){
         tr.removeAttribute('style')
       } else {
-
         const isTrHasPriority = checkedPriorities.some( function (value) {
           return value === tr.getAttribute('data-priority')
         })
@@ -148,20 +151,21 @@ document.addEventListener('DOMContentLoaded', () => {
           return value === tr.getAttribute('data-category')
         })
 
-        if (checkedCategories.length > 0 && checkedPriorities.length > 0 && authorSelected){
-          if (!isTrHasPriority || !isTrHasCategory || tr.getAttribute('data-author') !== authorSelected) {
+        // TODO: Try replace if statements by switch for make code cleaner:
+        if (checkedCategories.length > 0 && checkedPriorities.length > 0 && authorSelectedArr.length > 0 ){
+          if (!isTrHasPriority || !isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
             tr.setAttribute('style', 'display:none');
           } else {
             tr.removeAttribute('style')
           }
-        } else if (authorSelected && checkedPriorities.length > 0) {
-          if (!isTrHasPriority || tr.getAttribute('data-author') !== authorSelected) {
+        } else if (authorSelectedArr.length > 0 && checkedPriorities.length > 0) {
+          if (!isTrHasPriority || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
             tr.setAttribute('style', 'display:none');
           } else {
             tr.removeAttribute('style')
           }
-        } else if (authorSelected && checkedCategories.length > 0){
-          if (!isTrHasCategory || tr.getAttribute('data-author') !== authorSelected) {
+        } else if (authorSelectedArr.length > 0 && checkedCategories.length > 0){
+          if (!isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
             tr.setAttribute('style', 'display:none');
           } else {
             tr.removeAttribute('style')
@@ -172,8 +176,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             tr.removeAttribute('style')
           }
-        } else if (authorSelected) {
-          if (tr.getAttribute('data-author') !== authorSelected) {
+        } else if (authorSelectedArr.length > 0) {
+          if (tr.getAttribute('data-author') !== authorSelectedArr[0]) {
             tr.setAttribute('style', 'display:none');
           } else {
             tr.removeAttribute('style')
@@ -190,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             tr.removeAttribute('style')
           }
-        } else if (authorSelected === null) {
+        } else if (authorSelectedArr.length === 0) {
           tr.removeAttribute('style')
         }
 
@@ -246,8 +250,31 @@ document.addEventListener('DOMContentLoaded', () => {
     displayBooks(booksArr);
   }
 
+  function resetFilters() {
+    const prioritiesinputs = document.querySelectorAll('#filterByPriorities input')
+    prioritiesinputs.forEach( function (input) {
+      input.checked = false;
+    });
+
+    const categoriesinputs = document.querySelectorAll('#filterByCategory input')
+    categoriesinputs.forEach( function (input) {
+      input.checked = false;
+    });
+
+    const authorsOptions = document.querySelectorAll('#filterByAuthor option')
+    authorsOptions.forEach( function (option) {
+      option.selected = false;
+    });
+
+    authorsOptions[0].selected = true;
+
+    checkedPriorities = [];
+    checkedCategories = []; 
+    booksFilter();
+  }
+
   function displayCategories(categories) {
-    // ADD DEFAULT FIRST OPTION:
+    // ADD DEFAULT FIRST EMPTY OPTION:
     const defaultOption = document.createElement('option');
     defaultOption.setAttribute('value', 'none');
     defaultOption.setAttribute('selected', 'selected');
@@ -292,6 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
+    resetFilters();
     categoriesList.innerHTML = '';
     categorySelect.innerHTML = '';
     filterByAuthorSelect.innerHTML = '';
@@ -301,6 +329,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ls.setItem('categories', JSON.stringify(categories));
     displayFilterOptions(booksArr, categories);
     displayCategories(categories);
+    hookFilterCategoriesInputs();
   }
 
   function displayBooks(books) {
@@ -421,6 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setBookCounter();
 
         hookFilterCategoriesInputs();
+        resetFilters();
       }
 
       // EDIT BOOK //
@@ -472,6 +502,7 @@ document.addEventListener('DOMContentLoaded', () => {
         displayCategories(categories);
 
         hookFilterCategoriesInputs();
+        resetFilters();
       }
 
       setBookCounter();
@@ -515,9 +546,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hookFilterCategoriesInputs();
     booksFilter();
+    resetFilters();
   };
 
-  function removeAllBooks(){
+  function removeAllBooks() {
     booksArr = [];
     ls.setItem('books', JSON.stringify(booksArr));
     displayBooks(booksArr);
@@ -531,9 +563,10 @@ document.addEventListener('DOMContentLoaded', () => {
     displayFilterOptions(booksArr, categories);
     displayCategories(categories);
     setBookCounter();
+    resetFilters();
   }
 
-  function printList (){
+  function printList () {
     window.print();
   };
 
