@@ -151,53 +151,34 @@ document.addEventListener('DOMContentLoaded', () => {
           return value === tr.getAttribute('data-category')
         })
 
-        // TODO: Try replace if statements by switch for make code cleaner:
-        if (checkedCategories.length > 0 && checkedPriorities.length > 0 && authorSelectedArr.length > 0 ){
-          if (!isTrHasPriority || !isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
-            tr.setAttribute('style', 'display:none');
-          } else {
+        switch (true) {
+          case checkedCategories.length > 0 && checkedPriorities.length > 0 && authorSelectedArr.length > 0:
+            !isTrHasPriority || !isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0] ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style')
+            break;
+          case authorSelectedArr.length > 0 && checkedPriorities.length > 0:         
+            !isTrHasPriority || tr.getAttribute('data-author') !== authorSelectedArr[0] ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case authorSelectedArr.length > 0 && checkedCategories.length > 0:
+            !isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0] ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case checkedCategories.length > 0 && checkedPriorities.length > 0:
+            !isTrHasPriority || !isTrHasCategory ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case authorSelectedArr.length > 0:
+            tr.getAttribute('data-author') !== authorSelectedArr[0] ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case checkedPriorities.length === 0:
+            !isTrHasCategory ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case checkedCategories.length === 0:
+            !isTrHasPriority ? tr.setAttribute('style', 'display:none') : tr.removeAttribute('style');
+            break;
+          case authorSelectedArr.length === 0:
             tr.removeAttribute('style')
-          }
-        } else if (authorSelectedArr.length > 0 && checkedPriorities.length > 0) {
-          if (!isTrHasPriority || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
-            tr.setAttribute('style', 'display:none');
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (authorSelectedArr.length > 0 && checkedCategories.length > 0){
-          if (!isTrHasCategory || tr.getAttribute('data-author') !== authorSelectedArr[0]) {
-            tr.setAttribute('style', 'display:none');
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (checkedCategories.length > 0 && checkedPriorities.length > 0){
-          if (!isTrHasPriority || !isTrHasCategory) {
-            tr.setAttribute('style', 'display:none');
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (authorSelectedArr.length > 0) {
-          if (tr.getAttribute('data-author') !== authorSelectedArr[0]) {
-            tr.setAttribute('style', 'display:none');
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (checkedPriorities.length === 0) {
-          if (!isTrHasCategory ) {
-            tr.setAttribute('style', 'display:none')
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (checkedCategories.length === 0) {
-          if (!isTrHasPriority ) {
-            tr.setAttribute('style', 'display:none')
-          } else {
-            tr.removeAttribute('style')
-          }
-        } else if (authorSelectedArr.length === 0) {
-          tr.removeAttribute('style')
-        }
-
+            break;
+          default:
+            break;  
+        }; 
       }
     }) 
   }
