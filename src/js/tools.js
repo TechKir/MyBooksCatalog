@@ -3,7 +3,6 @@ import sampleBooks from './data/sampleBooks.json';
 
 const booksQuantity = document.getElementById('booksQuantity');
 const ls = window.localStorage;
-const booksArr = JSON.parse(ls.getItem('books'));
 
 // SHORT AND FAST INPUTS VALIDATION FUNCTION//
 function validate(data) {
@@ -36,6 +35,7 @@ function setBookCounter() {
 }
 
 function countCategory(category) {
+  const booksArr = JSON.parse(ls.getItem('books'));
   let sum = 0;
 
   if (booksArr) {

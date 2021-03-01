@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-alert */
 import {
   displayFilterOptions,
@@ -21,10 +20,10 @@ const radioInputs = document.querySelectorAll('.formBox__radio');
 
 setLsEntryValues();
 const ls = window.localStorage;
-let booksArr = JSON.parse(ls.getItem('books'));
-const categories = JSON.parse(ls.getItem('categories'));
 
 function addCategory() {
+  const booksArr = JSON.parse(ls.getItem('books'));
+  const categories = JSON.parse(ls.getItem('categories'));
   const category = window.prompt('Add new category');
   if (category === null) {
     return;
@@ -46,13 +45,16 @@ function addCategory() {
 
 function addBook(e) {
   e.preventDefault();
+  const booksArr = JSON.parse(ls.getItem('books'));
+  const categories = JSON.parse(ls.getItem('categories'));
 
   // TAKE ALL THE DATA FROM FORM:
   const data = new FormData(addBookForm);
   const inputsData = {};
-  for (const entry of data) {
+
+  [...data].forEach((entry) => {
     inputsData[entry[0]] = entry[1];
-  }
+  });
 
   if (validate(inputsData) === false) {
     return; // VALIDATION NOT PASS - CLOSEING FUNCTION
@@ -85,8 +87,9 @@ function addBook(e) {
 }
 
 function removeAllBooks() {
-  booksArr = [];
-  ls.setItem('books', JSON.stringify(booksArr));
+  ls.setItem('books', JSON.stringify([]));
+  const booksArr = JSON.parse(ls.getItem('books'));
+  const categories = JSON.parse(ls.getItem('categories'));
 
   // CLEAR ALL CATEGORIES TO INIT FRESH LIST:
   categoriesList.innerHTML = '';

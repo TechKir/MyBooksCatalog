@@ -1,8 +1,4 @@
-/* eslint-disable prefer-const */
 /* eslint-disable no-alert */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable prettier/prettier */
-
 import { displayFilterOptions, hookFilterCategoriesInputs, resetFilters } from './filter';
 import { countCategory, setBookCounter, validate, setLsEntryValues } from './tools';
 
@@ -17,7 +13,7 @@ setLsEntryValues();
 const ls = window.localStorage;
 
 function displayBooks(books) {
-  let booksArr = JSON.parse(ls.getItem('books'));
+  const booksArr = JSON.parse(ls.getItem('books'));
   const categories = JSON.parse(ls.getItem('categories'));
   // CLEAR ALL BOOKLIST AND MODALS CONTENT TO INIT FRESH BOOK LIST:
   bookList.innerHTML = '';
@@ -61,11 +57,13 @@ function displayBooks(books) {
             <form id='editBookForm${index}' class="formBox">
               <div class="formBox__inputBox">
                 <label for="title">Title:</label>
-                <input class='formBox__dataArea modalWidthCorrect' name='title' type="text" placeholder="Write the title" value='${book.title}'>
+                <input class='formBox__dataArea modalWidthCorrect' name='title' type="text" placeholder="Write the title" 
+                value='${book.title}'>
               </div>
               <div class="formBox__inputBox">
                 <label for="author">Author:</label>
-                <input class='formBox__dataArea modalWidthCorrect' name='author' type="text" placeholder="Write an author" value='${book.author}'>
+                <input class='formBox__dataArea modalWidthCorrect' name='author' type="text" placeholder="Write an author" 
+                value='${book.author}'>
               </div>
               <div class="formBox__inputBox">
                 <label for="category">Category:</label>
@@ -164,9 +162,10 @@ function displayBooks(books) {
       // TAKE ALL THE DATA FROM EDITFORM:
       const editedData = new FormData(editBookForm);
       const inputsEditedData = {};
-      for (const entry of editedData) {
+
+      [...editedData].forEach((entry) => {
         inputsEditedData[entry[0]] = entry[1];
-      }
+      });
 
       if (validate(inputsEditedData) === false) {
         return; // VALIDATION NOT PASS - CLOSEING FUNCTION
@@ -196,7 +195,6 @@ function displayBooks(books) {
 }
 
 function displayCategories(categories) {
-
   // ADD DEFAULT FIRST EMPTY OPTION:
   const defaultOption = document.createElement('option');
   defaultOption.setAttribute('value', 'none');
@@ -214,14 +212,14 @@ function displayCategories(categories) {
         `;
 
     const option = document.createElement('option');
-    option.setAttribute('value', category)
+    option.setAttribute('value', category);
     option.innerHTML = `
         ${category}
         `;
 
-    categoriesList.appendChild(li)
+    categoriesList.appendChild(li);
     categorySelect.appendChild(option);
-  })
-};
+  });
+}
 
 export { displayBooks, displayCategories };

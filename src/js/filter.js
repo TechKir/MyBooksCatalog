@@ -1,15 +1,11 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable prefer-arrow-callback */
-/* eslint-disable space-before-blocks */
-/* eslint-disable indent */
-
 const filterByAuthorSelect = document.getElementById('filterByAuthor');
 const filterByCategoryLi = document.getElementById('filterByCategory');
 const filterPrioritiesInputs = document.querySelectorAll('.filterBox li:last-child label input');
 const filterAuthorSelect = document.querySelector('.filterBox li:first-child select');
 
 let filterCategoriesInputs;
-filterPrioritiesInputs.forEach(function (input) {
+filterPrioritiesInputs.forEach((input) => {
   input.addEventListener('change', booksFilter);
 });
 
@@ -146,17 +142,17 @@ function booksFilter(e) {
 
 function resetFilters() {
   const prioritiesinputs = document.querySelectorAll('#filterByPriorities input');
-  prioritiesinputs.forEach(function (input) {
+  prioritiesinputs.forEach((input) => {
     input.checked = false;
   });
 
   const categoriesinputs = document.querySelectorAll('#filterByCategory input');
-  categoriesinputs.forEach(function (input) {
+  categoriesinputs.forEach((input) => {
     input.checked = false;
   });
 
   const authorsOptions = document.querySelectorAll('#filterByAuthor option');
-  authorsOptions.forEach(function (option) {
+  authorsOptions.forEach((option) => {
     option.selected = false;
   });
 

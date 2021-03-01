@@ -8,7 +8,6 @@ const sortByCategoryBtn = document.getElementById('sortByCategory');
 const sortByPriorityBtn = document.getElementById('sortByPriority');
 
 const ls = window.localStorage;
-const booksArr = JSON.parse(ls.getItem('books'));
 
 sortByTitleBtn.addEventListener('click', () => {
   sortBooks('title');
@@ -38,6 +37,7 @@ function hideSortOptions() {
 }
 
 function sortBooks(sortBy) {
+  const booksArr = JSON.parse(ls.getItem('books'));
   if (sortBy === 'priority') {
     booksArr.sort((bookA, bookB) => {
       if (bookA[sortBy] > bookB[sortBy]) return -1;
